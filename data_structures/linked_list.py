@@ -27,12 +27,12 @@ class LinkedList:
     def get(self, index):
         """Get element given index"""
 
-        something = self.__head
+        node = self.__head
 
         for i in range(0, index):
-            something = something.pointer
+            node = node.pointer
 
-        return something.value
+        return node.value
 
     def delete(self, index):
         """Delete element given index"""
