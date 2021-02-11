@@ -4,6 +4,7 @@ from sorted_frozen_set import SortedFrozenSet
 
 
 class TestConstruction(unittest.TestCase):
+    """Tests to create an instance of SortedFrozenSet"""
 
     def test_construct_empty(self):
         s = SortedFrozenSet([])
@@ -21,6 +22,7 @@ class TestConstruction(unittest.TestCase):
 
 
 class TestContainerProtocol(unittest.TestCase):
+    """Membership testing"""
 
     def setUp(self):
         """Fixtures"""
@@ -38,6 +40,54 @@ class TestContainerProtocol(unittest.TestCase):
 
     def test_negative_not_contained(self):
         self.assertFalse(9 not in self.s)
+
+
+class TestSizedProtocol(unittest.TestCase):
+    """Tests to determine number of items in collection"""
+
+    def test_empty_with_default(self):
+        s = SortedFrozenSet()
+        self.assertEqual(len(s), 0)
+
+    def test_empty(self):
+        s = SortedFrozenSet([])
+        self.assertEqual(len(s), 0)
+
+    def test_one(self):
+        s = SortedFrozenSet([42])
+        self.assertEqual(len(s), 1)
+
+    def test_ten(self):
+        s = SortedFrozenSet(range(10))
+        self.assertEqual(len(s), 10)
+
+    def test_with_duplicates(self):
+        s = SortedFrozenSet([5, 5, 5])
+        self.assertEqual(len(s), 1)
+
+
+class TestIterableProtocol(unittest.TestCase):
+
+    def setUp(self):
+        self.s = SortedFrozenSet([7, 2, 1, 1, 9])
+
+    def test_iter(self):
+        iterator = iter(self.s)
+        self.assertEqual(next(iterator), 1)
+        self.assertEqual(next(iterator), 2)
+        self.assertEqual(next(iterator), 7)
+        self.assertEqual(next(iterator), 9)
+        self.assertRaises(
+            StopIteration,
+            lambda: next(iterator)
+        )
+
+    def test_for_loop(self):
+        expected = [1, 2, 7, 9]
+        index = 0
+        for item in self.s:
+            self.assertEqual(item, expected[index])
+            index += 1
 
 
 if __name__ == "__main__":
