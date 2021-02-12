@@ -1,8 +1,13 @@
 from _collections_abc import Sequence
+from bisect import bisect_left
 from itertools import chain
 
 
-class SortedFrozenSet(Sequence):  # Inherit from Sequence to inherit mix-in methods index and count
+# Inherit from Sequence to inherit mix-in methods index and count
+# This is later overrided by a more efficient custom implementation, but is kept here for demonstration purposes
+
+
+class SortedFrozenSet(Sequence):
 
     def __init__(self, items=None):
         self._items = tuple(sorted(
@@ -11,7 +16,11 @@ class SortedFrozenSet(Sequence):  # Inherit from Sequence to inherit mix-in meth
         ))
 
     def __contains__(self, item):
-        return item in self._items
+        """Override inherited method from Sequence.
+        Use binary search to improve time complexity from O(n) to O(log(n))."""
+
+        index = bisect_left(self._items, item)
+        return (index != len(self._items)) and self._items[index] == item
 
     def __len__(self):
         return len(self._items)
@@ -67,3 +76,16 @@ class SortedFrozenSet(Sequence):  # Inherit from Sequence to inherit mix-in meth
         """Delegates to __mul__ through the high-level infix operator syntax"""
 
         return self * lhs
+
+    def count(self, item):
+        """Delegate to optimised __contains__ method"""
+
+        return int(item in self)
+
+    def index(self, item):
+        """Override inherited index method"""
+
+        index = bisect_left(self._items, item)
+        if (index != len(self._items)) and self._items[index] == item:
+            return index
+        raise ValueError(f"{item!r} not found")
