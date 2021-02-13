@@ -42,7 +42,7 @@ class TestContainerProtocol(unittest.TestCase):
     def test_negative_not_contained(self):
         self.assertFalse(9 not in self.s)
 
-    def test_protocl(self):
+    def test_protocol(self):
         self.assertTrue(issubclass(SortedFrozenSet, Container))
 
 
