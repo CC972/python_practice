@@ -24,8 +24,8 @@ s = SortedFrozenSet(r for r in islice(recaman(), 1000) if r < 1000)
 print(f"Recaman numbers which are less than 1000: {s}")
 print(f"Number of Recaman numbers which are less than 1000: {len(s)}")
 
-# Counter number of occurrences of each number to spot missing numbers
+# Count number of occurrences of each number to spot missing numbers
 [s.count(i) for i in range(1000)]
 
 # Run list comprehension 200 times for performance benchmarking
-print("Time taken: ", timeit(setup='from __main__ import s', stmt='[s.count(i) for i in range(1000)]', number=200))
+print("Time taken: ", timeit(setup='from __ main__ import s', stmt='[s.count(i) for i in range(1000)]', number=200))

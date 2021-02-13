@@ -1,13 +1,15 @@
-from _collections_abc import Sequence
+from _collections_abc import Sequence, Set
 from bisect import bisect_left
 from itertools import chain
 
 
-# Inherit from Sequence to inherit mix-in methods index and count
+# SortedFrozenSet inherits from Sequence to inherit mix-in methods index and count
 # This is later overrided by a more efficient custom implementation, but is kept here for demonstration purposes
+# Also, inheriting from the appropriate ABCs is encouraged when implementing collections
+# Since it becomes easier to determine whether or not a class implements a particular collection protocol
 
 
-class SortedFrozenSet(Sequence):
+class SortedFrozenSet(Sequence, Set):
 
     def __init__(self, items=None):
         self._items = tuple(sorted(
@@ -89,3 +91,21 @@ class SortedFrozenSet(Sequence):
         if (index != len(self._items)) and self._items[index] == item:
             return index
         raise ValueError(f"{item!r} not found")
+
+    def issubset(self, iterable):
+        return self <= SortedFrozenSet(iterable)
+
+    def issuperset(self, iterable):
+        return self >= SortedFrozenSet(iterable)
+
+    def intersection(self, iterable):
+        return self & SortedFrozenSet(iterable)
+
+    def union(self, iterable):
+        return self | SortedFrozenSet(iterable)
+
+    def symmetric_difference(self, iterable):
+        return self ^ SortedFrozenSet(iterable)
+
+    def difference(self, iterable):
+        return self - SortedFrozenSet(iterable)
