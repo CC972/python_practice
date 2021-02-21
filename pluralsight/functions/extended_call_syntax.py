@@ -11,7 +11,6 @@ print_args(*t)
 
 def colour(red, green, blue, **kwargs):
     print("r = ", red)
-    print("g = ", green)
     print("b = ", blue)
     print("kwargs = ", kwargs)
 
