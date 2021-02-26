@@ -20,4 +20,3 @@ def hello(name):
 
 hello('Chi')
 print(hello.count)
-

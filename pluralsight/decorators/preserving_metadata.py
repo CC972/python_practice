@@ -88,8 +88,3 @@ print(hello.__name__)
 print(hello.__doc__)
 
 print(help(hello))
-
-
-
-
-

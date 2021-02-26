@@ -24,6 +24,3 @@ def create_list(value, size):
 
 print(create_list('a', 3))
 print(create_list('a', -5))
-
-
-

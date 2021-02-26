@@ -18,6 +18,3 @@ def northern_city():
 
 
 print(northern_city())
-
-
-
