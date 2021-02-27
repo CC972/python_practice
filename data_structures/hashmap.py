@@ -90,24 +90,3 @@ class Node:
         self.key = key
         self.value = value
         self.next_node = next_node
-
-
-# Testing
-hash_map = HashMap()
-hash_map.assign(1, "Spaghetti")
-hash_map.assign(2, "Apple")
-hash_map.remove(1)
-hash_map.assign(3, "Tea")
-hash_map.assign(2, "Pineapple")
-hash_map.assign(4, "Boon")
-hash_map.assign(5, "Neko")
-hash_map.assign(6, "Something")
-hash_map.remove(2)
-hash_map.assign(6, "Chi")
-hash_map.assign(5, "Cat")
-hash_map.remove(5)
-hash_map.assign(7, "Moon")
-hash_map.assign(8, "Harry")
-hash_map.assign("Dog", "Harry")
-hash_map.remove(6)
-print(hash_map)

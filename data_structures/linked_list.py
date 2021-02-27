@@ -61,15 +61,3 @@ class Node:
 
         self.value = value
         self.pointer = pointer
-
-
-# Testing
-b = LinkedList()
-
-b.append("a")
-b.append("b")
-b.append("c")
-b.append("d")
-b.delete(2)
-
-print(', '.join(b.get(i) for i in range(b.size())))

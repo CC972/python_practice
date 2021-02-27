@@ -1,5 +1,6 @@
 """Implementation of ArrayList"""
 
+
 class ArrayList:
     """An implementation of a list data structure backed by an array"""
 
@@ -41,24 +42,3 @@ class ArrayList:
         """Get size of array"""
 
         return self.__size
-
-
-# Tests
-a = ArrayList()
-print(a.size())
-a.append("test")
-print(a.size())
-print(a.get(0) == "test")
-a.append("another")
-print(a.size())
-print(a.get(1) == "another")
-a.delete(0)
-print(a.size())
-
-b = ArrayList()
-b.append("a")
-b.append("b")
-b.append("c")
-b.append("d")
-b.delete(1)
-print(', '.join(b.get(i) for i in range(b.size())))

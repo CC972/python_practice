@@ -25,11 +25,11 @@ def compress(text):
 def decompress(text):
 
     buffer = []
-    prev_chr = None
-    for idx, chr in enumerate(text):
+    prev_char = None
+    for idx, char in enumerate(text):
         if idx % 2:
-            buffer += chr * ord(prev_chr)
-        prev_chr = chr
+            buffer += char * ord(prev_char)
+        prev_char = char
 
     return ''.join(buffer)
 
