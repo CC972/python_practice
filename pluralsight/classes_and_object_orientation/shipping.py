@@ -109,9 +109,44 @@ class RefrigeratedShippingContainer(ShippingContainer):
         # In other OOP languages, constructors at every level in an inheritance hierarchy are called automatically
         # But in Python we need to explicitly call the base class initializer when overriding it in a derived class
         super().__init__(owner_code, contents, **kwargs)
-        if celsius > RefrigeratedShippingContainer.MAX_CELSIUS:
-            raise ValueError("Temperature too hot!")
+        # Use self encapsulation to re-use the temperature validation logic
+        # Even attributes internal to the class go through the property getter and setter
+        # Rather than directly accessing the underlying attribute
+        # Useful technique for helping maintaining class invariants (e.g. temperature constraint)
         self.celsius = celsius
+
+    # Following methods to perform temperature conversions are good candidates for static methods
+    # Since they don't depend on instance or class objects, but don't belong in the global scope either
+    @staticmethod
+    def _c_to_f(celsius):
+        return celsius * 9/5 + 32
+
+    @staticmethod
+    def _f_to_c(fahrenheit):
+        return (fahrenheit - 32) * 5/9
+
+    # Getters and setters are not pythonic
+    # Instead we encapsulate getter and setter methods in properties which behave like attributes
+    # Read-only attribute (getter)
+    @property
+    def celsius(self):
+        return self._celsius
+
+    # Setter method
+    @celsius.setter
+    def celsius(self, value):
+        if value > RefrigeratedShippingContainer.MAX_CELSIUS:
+            raise ValueError("Temperature too hot!")
+        self._celsius = value
+
+    # Properties don't have to be backed by attributes and can be computed on the fly
+    @property
+    def fahrenheit(self):
+        return RefrigeratedShippingContainer._c_to_f(self.celsius)
+
+    @fahrenheit.setter
+    def fahrenheit(self, value):
+        self.celsius = RefrigeratedShippingContainer._f_to_c(value)
 
     # Static method with inheritance
     @staticmethod
@@ -142,3 +177,22 @@ print(r4)
 print(r4.bic)
 print(r4.contents)
 print(r4.celsius)
+
+# Can access attribute value celsius using the regular attribute access syntax (as opposed to function call)
+# The property decorator converts the celsius method such that when accessed, it behaves like an attribute
+r5 = RefrigeratedShippingContainer.create_with_items("YOU", ["yoghurt"], celsius=-18.0)
+print(r5.celsius)
+
+# Set temperature
+# Attempting to set the temperature above MAX_CELSIUS raises an error, so class invariant is maintained
+r6 = RefrigeratedShippingContainer.create_with_items("DEE", ["prawns"], celsius=-18.0)
+r6.celsius = -19.0
+print(r6.celsius)
+
+# Get and set temperature in fahrenheit
+r7 = RefrigeratedShippingContainer.create_empty("LMN", celsius=-20.0)
+print(r7.fahrenheit)
+print(r7.celsius)
+r7.fahrenheit = -5.0
+print(r7.fahrenheit)
+print(r7.celsius)
