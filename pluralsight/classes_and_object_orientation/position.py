@@ -40,9 +40,23 @@ class Position:
     # str() is generally intended for consumers of system (users, people, UIs, other systems, etc.)
     # Should be readable and leave out technical implementation details
     def __str__(self):
+        # Convention that default format invocation where format_spec is the empty string gives same result as __str__
+        # So let __str__ delegate to __format__ via built-in format function without second argument
+        return format(self)
+
+    # Default implementation of __format__ delegates to __str__
+    def __format__(self, format_spec):
+        component_format_spec = ".2f"
+        # Use partition method of str class to parse format spec into 3 parts
+        prefix, dot, suffix = format_spec.partition(".")
+        if dot:
+            num_decimal_places = int(suffix)
+            component_format_spec = f".{num_decimal_places}f"
+        latitude = format(abs(self.latitude), component_format_spec)
+        longitude = format(abs(self.longitude), component_format_spec)
         return (
-            f"{abs(self.latitude)}° {self.latitude_hemisphere}, "
-            f"{abs(self.longitude)}° {self.longitude_hemisphere}"
+            f"{latitude}° {self.latitude_hemisphere}, "
+            f"{longitude}° {self.longitude_hemisphere}"
         )
 
 
@@ -79,3 +93,25 @@ print(olympus_mons)
 mount_erebus = EarthPosition(-77.5, 167.2)
 print(str(mount_erebus))
 print("Mount Erebus is located at",  mount_erebus)
+
+# Testing out format(), which is also used by f strings
+matterhorn = EarthPosition(45.9763, 7.6586)
+print(format(matterhorn))
+print(format(matterhorn, ".1"))
+print(f"The Matterhorn is at {matterhorn:.3}")
+
+# Formatting example with floats where format() delegates to __format__
+q = 7.748091e-5
+print(format(q))
+print(format(q, "f"))  # Fixed point representation
+print(format(q, ".7f"))  # Specify number of decimal places
+print(format(q, "+.11f"))  # Explicit positive number sign
+print(format(q, ">+20"))  # Right-align number to field width of 20
+print(f"The conductance quantum is {q:.6f}")
+print(f"The conductance quantum is {q:.2e}")
+
+# Can force use of __str__ or __repr__
+everest = EarthPosition(27.988056, 86.925278)
+print(f"The everest object is {everest!r}")
+print(f"Mount Everest is at {everest!s}")
+print(f"{everest=}")  # Displays __repr__ result
