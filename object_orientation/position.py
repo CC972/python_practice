@@ -59,6 +59,14 @@ class Position:
             f"{longitude}° {self.longitude_hemisphere}"
         )
 
+    def __eq__(self, other):
+        if not isinstance(other, type(self)):
+            return NotImplemented
+        return (self.latitude == other.latitude) and (self.longitude == other.longitude)
+
+    def __hash__(self):
+        return hash((self.latitude, self.longitude))
+
 
 class EarthPosition(Position):
     pass
