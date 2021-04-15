@@ -1,7 +1,7 @@
 from itertools import *
-from pluralsight.iterators_and_iterables.depth_first_pre_order import PreOrderIterator
-from pluralsight.iterators_and_iterables.iterator_utils import _is_perfect_length
-from pluralsight.iterators_and_iterables.skip_missing import SkipMissingIterator
+from iterators_and_iterables.depth_first_pre_order import PreOrderIterator
+from iterators_and_iterables.iterator_utils import _is_perfect_length
+from iterators_and_iterables.skip_missing import SkipMissingIterator
 
 
 class PerfectBinaryTree:
