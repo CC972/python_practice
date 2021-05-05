@@ -9,8 +9,8 @@ print(i.__class__)
 print(i.__class__.__class__)  # Type is its own type
 print(i.__class__.__class__.__class__)
 
-# issubclass() determines if first argument is a subclass of second
-# Second argument can be a single class or a tuple of classes
+# issubclass() determines if first argument is a subclass of the second
+# Second argument can be a single class or a tuple of classes (in which case it checks for any)
 print(issubclass(type, object))
 print(type(object))
 
