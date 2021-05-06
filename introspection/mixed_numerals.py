@@ -13,5 +13,8 @@ def mixed_numeral(vulgar):
         raise TypeError("{} is not a rational number".format(vulgar)) from e  # Explicit exception chaining
 
 
+# Case where input can be converted to a mixed fraction
 print(mixed_numeral(Fraction('11/10')))
+
+# Case where input cannot be converted to a mixed fraction (raises error)
 print(mixed_numeral(1.7))
