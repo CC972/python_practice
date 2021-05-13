@@ -1,4 +1,5 @@
 import inspect
+from num_vowels import num_vowels
 import batch
 
 # Check that batch is a module
@@ -42,3 +43,14 @@ print(str(init_sig))
 
 # Functions implemented in C (or other languages) may be missing metadata and cause signature() to fail
 # inspect.signature(iter)
+
+# We can inspect type annotations as well
+sig = inspect.signature(num_vowels)
+print(sig.parameters['text'])
+print(sig.parameters['text'].annotation)
+print(sig)
+print(sig.return_annotation)
+
+# Can also bypass inspect entirely and access the function's annotations directly
+# As __annotations__ is where Python stores type annotations at runtime
+print(num_vowels.__annotations__)
