@@ -33,3 +33,12 @@ print(init_sig)
 
 # From this signature object, we can obtain a list of parameters
 print(init_sig.parameters)
+
+# We can then query individual parameters for attributes, such as their default values
+print(repr(init_sig.parameters['iterables'].default))
+
+# Can convert signature object to string
+print(str(init_sig))
+
+# Functions implemented in C (or other languages) may be missing metadata and cause signature() to fail
+# inspect.signature(iter)
