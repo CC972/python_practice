@@ -41,7 +41,7 @@ print(repr(init_sig.parameters['iterables'].default))
 # Can convert signature object to string
 print(str(init_sig))
 
-# Functions implemented in C (or other languages) may be missing metadata and cause signature() to fail
+# Functions implemented in C (or other languages) may be missing metadata and cause signature() to fail (ValueError)
 # inspect.signature(iter)
 
 # We can inspect type annotations as well
